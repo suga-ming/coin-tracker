@@ -4,7 +4,7 @@ import { RouterProvider } from "react-router-dom";
 import { ThemeProvider } from "styled-components";
 import router from "./Router";
 // import App from "./Root";
-import { darkTheme, lightTheme } from "./theme";
+import { theme } from "./theme";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -12,6 +12,8 @@ const root = ReactDOM.createRoot(
 
 root.render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <ThemeProvider theme={theme}>
+      <RouterProvider router={router} />
+    </ThemeProvider>
   </React.StrictMode>
 );
