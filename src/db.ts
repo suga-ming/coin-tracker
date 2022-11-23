@@ -5,6 +5,6 @@ export const users = [
   },
   {
     id: 2,
-    name: "sugaMing",
+    name: "sugaming",
   },
 ];
