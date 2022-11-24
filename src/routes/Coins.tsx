@@ -39,6 +39,10 @@ const Img = styled.img`
   margin-right: 10px;
 `;
 
+const Loader = styled.div`
+  text-align: center;
+`;
+
 const Title = styled.h1`
   font-size: 48px;
   color: ${(props) => props.theme.accentColor};
@@ -78,12 +82,12 @@ const Coins = () => {
         <Title>코인</Title>
       </Header>
       {loading ? (
-        "loading..."
+        <Loader>loading...</Loader>
       ) : (
         <CoinList>
           {coins.map((coin) => (
             <Coin key={coin.id}>
-              <Link to={`/${coin.id}`}>
+              <Link to={`/${coin.id}`} state={coin.name}>
                 <Img
                   src={`https://coinicons-api.vercel.app/api/icon/${coin.symbol.toLowerCase()}`}
                 />
