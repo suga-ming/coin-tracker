@@ -1,6 +1,13 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { Link, Route, Routes, useLocation, useParams } from "react-router-dom";
+import {
+  Link,
+  Route,
+  Routes,
+  useLocation,
+  useMatch,
+  useParams,
+} from "react-router-dom";
 import styled from "styled-components";
 import Chart from "./Chart";
 import Price from "./Price";
@@ -55,7 +62,7 @@ const Tabs = styled.div`
   gap: 10px;
 `;
 
-const Tab = styled.div`
+const Tab = styled.div<{ isActive: boolean }>`
   text-align: center;
   text-transform: uppercase;
   background-color: black;
@@ -63,7 +70,9 @@ const Tab = styled.div`
   font-weight: 400;
   padding: 7px 0px;
   border-radius: 10px;
-  a {
+  color: ${(props) =>
+      props.isActive ? props.theme.accentColor : props.theme.textColor}
+    a {
     display: block;
   }
 `;
@@ -134,6 +143,9 @@ const Coin = () => {
   const { state } = useLocation() as RouteState;
   const [info, setInfo] = useState<InfoData>();
   const [priceInfo, setPriceInfo] = useState<PriceData>();
+  const priceMatch = useMatch("/:coinId/price");
+  const chartMatch = useMatch("/:coinId/chart");
+  console.log(priceMatch);
 
   useEffect(() => {
     (async () => {
@@ -185,10 +197,10 @@ const Coin = () => {
               </OverViewItem>
             </OverView>
             <Tabs>
-              <Tab>
+              <Tab isActive={chartMatch !== null}>
                 <Link to="chart">Chart</Link>
               </Tab>
-              <Tab>
+              <Tab isActive={priceMatch !== null}>
                 <Link to="price">Price</Link>
               </Tab>
             </Tabs>
