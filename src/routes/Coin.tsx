@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { Route, Routes, useLocation, useParams } from "react-router-dom";
+import { Link, Route, Routes, useLocation, useParams } from "react-router-dom";
 import styled from "styled-components";
 import Chart from "./Chart";
 import Price from "./Price";
@@ -46,6 +46,26 @@ const OverViewItem = styled.div`
 const OverViewText = styled.div`
   font-size: 10px;
   margin-bottom: 6px;
+`;
+
+const Tabs = styled.div`
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  margin: 25px 0px;
+  gap: 10px;
+`;
+
+const Tab = styled.div`
+  text-align: center;
+  text-transform: uppercase;
+  background-color: black;
+  font-size: 12px;
+  font-weight: 400;
+  padding: 7px 0px;
+  border-radius: 10px;
+  a {
+    display: block;
+  }
 `;
 
 interface RouteState {
@@ -164,6 +184,15 @@ const Coin = () => {
                 {priceInfo?.max_supply}
               </OverViewItem>
             </OverView>
+            <Tabs>
+              <Tab>
+                <Link to="chart">Chart</Link>
+              </Tab>
+              <Tab>
+                <Link to="price">Price</Link>
+              </Tab>
+            </Tabs>
+
             <Routes>
               <Route path="chart" element={<Chart />} />
               <Route path="price" element={<Price />} />
