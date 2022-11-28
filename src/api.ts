@@ -17,3 +17,9 @@ export const getCoinTickers = async (coinId: string) => {
     .get(`${Base_URL}/v1/tickers/${coinId}`)
     .then((res) => res.data);
 };
+
+export const getCoinHistory = async (coinId: string) => {
+  return await axios
+    .get(`https://ohlcv-api.nomadcoders.workers.dev/?coinId=${coinId}`)
+    .then((res) => res.data);
+};
