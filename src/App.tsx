@@ -1,6 +1,6 @@
 import Router from "./Router";
 import styled, { createGlobalStyle, ThemeProvider } from "styled-components";
-import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import { ReactQueryDevtools } from "react-query/devtools";
 import { theme } from "./theme";
 
 function App() {
