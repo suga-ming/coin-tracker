@@ -71,8 +71,8 @@ const Tab = styled.div<{ isActive: boolean }>`
   padding: 7px 0px;
   border-radius: 10px;
   color: ${(props) =>
-      props.isActive ? props.theme.accentColor : props.theme.textColor}
-    a {
+    props.isActive ? props.theme.accentColor : props.theme.textColor};
+  a {
     display: block;
   }
 `;
@@ -146,6 +146,7 @@ const Coin = () => {
   const priceMatch = useMatch("/:coinId/price");
   const chartMatch = useMatch("/:coinId/chart");
   console.log(priceMatch);
+  console.log(chartMatch);
 
   useEffect(() => {
     (async () => {

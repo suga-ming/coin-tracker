@@ -1,7 +1,9 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { useQuery } from "react-query";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import { getCoinList } from "../api";
 
 const Container = styled.div`
   padding: 0 20px;
@@ -48,7 +50,7 @@ const Title = styled.h1`
   color: ${(props) => props.theme.accentColor};
 `;
 
-interface CoinInterface {
+interface ICoin {
   id: string;
   name: string;
   symbol: string;
@@ -59,33 +61,34 @@ interface CoinInterface {
 }
 
 const Coins = () => {
-  const [coins, setCoins] = useState<CoinInterface[]>([]);
-  const [loading, setLoading] = useState(true);
+  const { isLoading, data } = useQuery<ICoin[]>("allCoins", getCoinList);
+  //   const [coins, setCoins] = useState<ICoin[]>([]);
+  //   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    (async () => {
-      try {
-        const response = await axios.get(
-          "https://api.coinpaprika.com/v1/coins"
-        );
-        setCoins(response.data.slice(0, 100));
-        setLoading(false);
-      } catch (error) {
-        console.log(error);
-      }
-    })();
-  }, []);
+  //   useEffect(() => {
+  //     (async () => {
+  //       try {
+  //         const response = await axios.get(
+  //           "https://api.coinpaprika.com/v1/coins"
+  //         );
+  //         setCoins(response.data.slice(0, 100));
+  //         setLoading(false);
+  //       } catch (error) {
+  //         console.log(error);
+  //       }
+  //     })();
+  //   }, []);
 
   return (
     <Container>
       <Header>
         <Title>코인</Title>
       </Header>
-      {loading ? (
+      {isLoading ? (
         <Loader>loading...</Loader>
       ) : (
         <CoinList>
-          {coins.map((coin) => (
+          {data?.slice(0, 100).map((coin) => (
             <Coin key={coin.id}>
               <Link to={`/${coin.id}`} state={coin.name}>
                 <Img

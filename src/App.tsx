@@ -1,5 +1,7 @@
 import Router from "./Router";
-import styled, { createGlobalStyle } from "styled-components";
+import styled, { createGlobalStyle, ThemeProvider } from "styled-components";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import { theme } from "./theme";
 
 function App() {
   const GlobalStyle = createGlobalStyle`
@@ -67,8 +69,11 @@ table {
   `;
   return (
     <>
-      <GlobalStyle />
-      <Router />
+      <ThemeProvider theme={theme}>
+        <GlobalStyle />
+        <Router />
+        <ReactQueryDevtools initialIsOpen={true} />
+      </ThemeProvider>
     </>
   );
 }
