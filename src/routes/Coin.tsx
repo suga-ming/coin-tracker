@@ -26,6 +26,7 @@ const Header = styled.header`
   align-items: center;
   justify-content: center;
   margin-top: 20px;
+  position: relative;
 `;
 const Title = styled.h1`
   font-size: 48px;
@@ -79,6 +80,12 @@ const Tab = styled.div<{ isActive: boolean }>`
   a {
     display: block;
   }
+`;
+const Back = styled.div`
+  position: absolute;
+  font-size: 40px;
+  left: 10px;
+  top: 22px;
 `;
 
 interface RouteState {
@@ -192,6 +199,9 @@ const Coin = () => {
           <Title>
             {state ? state : loading ? "Loading..." : infoData?.name}
           </Title>
+          <Link to="/">
+            <Back>←</Back>
+          </Link>
         </Header>
         {loading ? (
           <Loader>loading...</Loader>
@@ -233,7 +243,7 @@ const Coin = () => {
 
             <Routes>
               <Route path="chart" element={<Chart coinId={coinId!} />} />
-              <Route path="price" element={<Price />} />
+              <Route path="price" element={<Price coinId={coinId!} />} />
             </Routes>
           </div>
         )}
