@@ -43,6 +43,20 @@ const Chart = ({ coinId }: ChartProps) => {
               axisBorder: { show: false },
               labels: { show: false },
               axisTicks: { show: false },
+              type: "datetime",
+              categories: data?.map((price) =>
+                new Date(price.time_close * 1000).toUTCString()
+              ),
+            },
+            fill: {
+              type: "gradient",
+              gradient: { gradientToColors: ["#0be881"], stops: [0, 100] },
+            },
+            colors: ["#0fbcf9"],
+            tooltip: {
+              y: {
+                formatter: (value) => `$ ${value.toFixed(2)}`,
+              },
             },
           }}
           series={[

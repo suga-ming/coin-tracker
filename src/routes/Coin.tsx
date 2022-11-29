@@ -13,6 +13,7 @@ import styled from "styled-components";
 import { getCoinInfo, getCoinTickers } from "../api";
 import Chart from "./Chart";
 import Price from "./Price";
+import { Helmet } from "react-helmet";
 
 const Container = styled.div`
   padding: 0 20px;
@@ -24,6 +25,7 @@ const Header = styled.header`
   display: flex;
   align-items: center;
   justify-content: center;
+  margin-top: 20px;
 `;
 const Title = styled.h1`
   font-size: 48px;
@@ -117,7 +119,7 @@ interface PriceData {
   first_data_at: string;
   last_updated: string;
   quotes: {
-    USd: {
+    USD: {
       ath_date: number;
       ath_price: number;
       market_cap: number;
@@ -151,7 +153,10 @@ const Coin = () => {
   );
   const { isLoading: tickersLoading, data: tickersData } = useQuery<PriceData>(
     ["tickers", coinId],
-    () => getCoinTickers(coinId!)
+    () => getCoinTickers(coinId!),
+    {
+      refetchInterval: 10000,
+    }
   );
   // const [loading, setLoading] = useState(true);
   // const [infoData, setInfo] = useState<InfoData>();
@@ -178,6 +183,11 @@ const Coin = () => {
   return (
     <div>
       <Container>
+        <Helmet>
+          <title>
+            {state ? state : loading ? "Loading..." : infoData?.name}
+          </title>
+        </Helmet>
         <Header>
           <Title>
             {state ? state : loading ? "Loading..." : infoData?.name}
@@ -197,8 +207,8 @@ const Coin = () => {
                 <div>${infoData?.symbol}</div>
               </OverViewItem>
               <OverViewItem>
-                <OverViewText>OPEN SOURCE:</OverViewText>
-                <div>{infoData?.open_source ? "Yes" : "No"}</div>
+                <OverViewText>PRICE:</OverViewText>
+                <div>${tickersData?.quotes.USD.price.toFixed(2)}</div>
               </OverViewItem>
             </OverView>
             <div>{infoData?.description}</div>
