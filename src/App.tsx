@@ -1,7 +1,10 @@
 import Router from "./Router";
 import styled, { createGlobalStyle, ThemeProvider } from "styled-components";
 import { ReactQueryDevtools } from "react-query/devtools";
-import { theme } from "./theme";
+import { purpleTheme, blueTheme, pinkTheme } from "./theme";
+import { useState } from "react";
+import { useRecoilState } from "recoil";
+import { isTheme } from "./atoms";
 
 function App() {
   const GlobalStyle = createGlobalStyle`
@@ -65,11 +68,18 @@ table {
 	text-decoration: none;
   color:inherit;
  }
+ `;
 
-  `;
+  const [Theme] = useRecoilState(isTheme);
+  // const [Theme, setTheme] = useState(purpleTheme);
+  // const toggleTheme = () => setTheme((current) => !current);
+  // const purpleTheme = () => setTheme(purpleTheme);
+  // const blueTheme = () => setTheme(blueTheme);
+
   return (
     <>
-      <ThemeProvider theme={theme}>
+      <ThemeProvider theme={Theme ? purpleTheme : blueTheme}>
+        {/* <ThemeProvider theme={Theme}> */}
         <GlobalStyle />
         <Router />
         <ReactQueryDevtools initialIsOpen={true} />

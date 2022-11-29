@@ -14,6 +14,8 @@ import { getCoinInfo, getCoinTickers } from "../api";
 import Chart from "./Chart";
 import Price from "./Price";
 import { Helmet } from "react-helmet";
+import { useRecoilState } from "recoil";
+import { isTheme } from "../atoms";
 
 const Container = styled.div`
   padding: 0 20px;
@@ -88,6 +90,27 @@ const Back = styled.div`
   top: 22px;
 `;
 
+const ThemePurple = styled.div`
+  width: 20px;
+  height: 20px;
+  border-radius: 100%;
+  background-color: #9c88ff;
+`;
+
+const ThemeBlue = styled.div`
+  width: 20px;
+  height: 20px;
+  border-radius: 100%;
+  background-color: #575fcf;
+`;
+
+const ThemePink = styled.div`
+  width: 20px;
+  height: 20px;
+  border-radius: 100%;
+  background-color: #ef5777;
+`;
+
 interface RouteState {
   state: string;
 }
@@ -148,7 +171,9 @@ interface PriceData {
   };
 }
 
-const Coin = () => {
+interface ICoinsProps {}
+
+const Coin = ({}: ICoinsProps) => {
   const { coinId } = useParams<{ coinId: string }>();
   const { state } = useLocation() as RouteState;
   const priceMatch = useMatch("/:coinId/price");
@@ -187,6 +212,8 @@ const Coin = () => {
   // }, []);
 
   const loading = infoLoading || tickersLoading;
+  const [Theme, setTheme] = useRecoilState(isTheme);
+  const toggleTheme = () => setTheme((current) => !current);
   return (
     <div>
       <Container>
@@ -202,6 +229,9 @@ const Coin = () => {
           <Link to="/">
             <Back>←</Back>
           </Link>
+          <ThemePurple onClick={toggleTheme} />
+          {/* <ThemeBlue onClick={toggleTheme} /> */}
+          {/* <ThemePink onClick={toggleTheme} /> */}
         </Header>
         {loading ? (
           <Loader>loading...</Loader>
