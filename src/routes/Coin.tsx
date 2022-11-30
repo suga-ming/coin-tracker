@@ -15,7 +15,9 @@ import Chart from "./Chart";
 import Price from "./Price";
 import { Helmet } from "react-helmet";
 import { useRecoilState } from "recoil";
-import { isTheme } from "../atoms";
+// import { isTheme } from "../atoms";
+import { blueTheme, pinkTheme, purpleTheme } from "../theme";
+import { colorTheme } from "../atoms";
 
 const Container = styled.div`
   padding: 0 20px;
@@ -95,6 +97,8 @@ const ThemePurple = styled.div`
   height: 20px;
   border-radius: 100%;
   background-color: #9c88ff;
+  margin-left: 10px;
+  cursor: pointer;
 `;
 
 const ThemeBlue = styled.div`
@@ -102,6 +106,9 @@ const ThemeBlue = styled.div`
   height: 20px;
   border-radius: 100%;
   background-color: #575fcf;
+  margin-left: 10px;
+
+  cursor: pointer;
 `;
 
 const ThemePink = styled.div`
@@ -109,6 +116,9 @@ const ThemePink = styled.div`
   height: 20px;
   border-radius: 100%;
   background-color: #ef5777;
+  margin-left: 10px;
+
+  cursor: pointer;
 `;
 
 interface RouteState {
@@ -212,8 +222,12 @@ const Coin = ({}: ICoinsProps) => {
   // }, []);
 
   const loading = infoLoading || tickersLoading;
-  const [Theme, setTheme] = useRecoilState(isTheme);
-  const toggleTheme = () => setTheme((current) => !current);
+  // const [Theme, setTheme] = useRecoilState(isTheme);
+  // const toggleTheme = () => setTheme((current) => !current);
+  const [Theme, setTheme] = useRecoilState(colorTheme);
+  const PurPleTheme = () => setTheme(purpleTheme);
+  const BlueTheme = () => setTheme(blueTheme);
+  const PinkTheme = () => setTheme(pinkTheme);
   return (
     <div>
       <Container>
@@ -229,9 +243,9 @@ const Coin = ({}: ICoinsProps) => {
           <Link to="/">
             <Back>←</Back>
           </Link>
-          <ThemePurple onClick={toggleTheme} />
-          {/* <ThemeBlue onClick={toggleTheme} /> */}
-          {/* <ThemePink onClick={toggleTheme} /> */}
+          <ThemePurple onClick={PurPleTheme} />
+          <ThemeBlue onClick={BlueTheme} />
+          <ThemePink onClick={PinkTheme} />
         </Header>
         {loading ? (
           <Loader>loading...</Loader>

@@ -4,7 +4,8 @@ import { ReactQueryDevtools } from "react-query/devtools";
 import { purpleTheme, blueTheme, pinkTheme } from "./theme";
 import { useState } from "react";
 import { useRecoilState } from "recoil";
-import { isTheme } from "./atoms";
+// import { isTheme, colorTheme } from "./atoms";
+import { colorTheme } from "./atoms";
 
 function App() {
   const GlobalStyle = createGlobalStyle`
@@ -70,7 +71,8 @@ table {
  }
  `;
 
-  const [Theme] = useRecoilState(isTheme);
+  // const [Theme] = useRecoilState(isTheme);
+  const [Theme] = useRecoilState(colorTheme);
   // const [Theme, setTheme] = useState(purpleTheme);
   // const toggleTheme = () => setTheme((current) => !current);
   // const purpleTheme = () => setTheme(purpleTheme);
@@ -78,8 +80,8 @@ table {
 
   return (
     <>
-      <ThemeProvider theme={Theme ? purpleTheme : blueTheme}>
-        {/* <ThemeProvider theme={Theme}> */}
+      {/* <ThemeProvider theme={Theme ? purpleTheme : blueTheme}> */}
+      <ThemeProvider theme={Theme}>
         <GlobalStyle />
         <Router />
         <ReactQueryDevtools initialIsOpen={true} />
