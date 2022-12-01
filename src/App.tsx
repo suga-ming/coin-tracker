@@ -6,6 +6,7 @@ import { useState } from "react";
 import { useRecoilState } from "recoil";
 // import { isTheme, colorTheme } from "./atoms";
 import { colorTheme } from "./atoms";
+import ToDoList from "./Todo/ToDoList";
 
 function App() {
   const GlobalStyle = createGlobalStyle`
@@ -83,7 +84,8 @@ table {
       {/* <ThemeProvider theme={Theme ? purpleTheme : blueTheme}> */}
       <ThemeProvider theme={Theme}>
         <GlobalStyle />
-        <Router />
+        {/* <Router /> */}
+        <ToDoList />
         <ReactQueryDevtools initialIsOpen={true} />
       </ThemeProvider>
     </>
