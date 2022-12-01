@@ -36,9 +36,11 @@ interface IFormData {
     };
   };
   email: string;
-  password: string;
-  name?: string;
+  name: string;
+  password?: string;
+  password1?: string;
   phoneNumber?: number;
+  extraError?: string;
 }
 
 const ToDoList = () => {
@@ -47,9 +49,17 @@ const ToDoList = () => {
     watch,
     handleSubmit,
     formState: { errors },
+    setError,
   } = useForm<IFormData>({ defaultValues: { email: "@naver.com" } });
-  const onValid = (data: any) => {
-    console.log(data);
+  const onValid = (data: IFormData) => {
+    if (data.password !== data.password1) {
+      setError("password1", { message: "password가 다릅니다" });
+    }
+    setError(
+      "extraError",
+      { message: "server offline" },
+      { shouldFocus: true }
+    );
   };
   console.log(errors);
   return (
@@ -66,20 +76,26 @@ const ToDoList = () => {
           placeholder="여기에 입력하세요"
         ></input>
         <input
-          {...register("password", {
-            required: "password를 입력해주세요",
-            minLength: { value: 5, message: "5글자이상 입력해주세요" },
-            pattern: {
-              value: /^[A-Za-z0-9._%+-]+@naver.com$/,
-              message: "Only naver.com",
-            },
+          {...register("name", {
+            required: "name을 입력해주세요",
+            validate: (value) =>
+              !value.includes("by") ? "no by allowed" : true,
+            minLength: { value: 1, message: "1글자이상 입력해주세요" },
           })}
-          placeholder="이메일"
+          placeholder="성함"
         ></input>
         <span>{errors?.email?.message}</span>
-        <input {...register("name")} placeholder="이름"></input>
+        <input
+          {...register("password")}
+          placeholder="비밀번호를 입력해주세요"
+        ></input>
+        <input
+          {...register("password1")}
+          placeholder="비밀번호를 다시 입력해주세요"
+        ></input>
         <input {...register("phoneNumber")} placeholder="폰번호"></input>
         <button>추가</button>
+        <span>{errors?.extraError?.message}</span>
       </form>
     </>
   );
