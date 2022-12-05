@@ -1,38 +1,27 @@
-import React from "react";
-import { useForm } from "react-hook-form";
-import { atom, useRecoilState } from "recoil";
-import { inputValueAtom } from "../atoms";
+import { useRecoilState } from "recoil";
+import { toDoState } from "./components/atoms";
+import CreateToDo from "./components/CreateToDo";
+import ToDo from "./components/ToDo";
 
-const toDoState = atom({
-  key: "toDo",
-  default: [],
-});
-
-interface IToDo {
+export interface IToDo {
   text: string;
-}
-
-interface IForm {
-  toDo: string;
+  id: number;
+  category: "TO_DO" | "DOING" | "DONE";
 }
 
 const ToDoList = () => {
-  const { register, handleSubmit, setValue } = useForm<IForm>();
-  const [toDos, setToDos] = useRecoilState(toDoState);
-  const onSubmit = (data: IForm) => {
-    console.log("add to do", data.toDo);
-    setValue("toDo", "");
-  };
+  const [toDos] = useRecoilState(toDoState);
 
   return (
     <div>
       <h1>To Dos</h1>
       <br />
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <input {...register("toDo")} placeholder="여기에 입력하세요"></input>
-        <button>추가</button>
-      </form>
-      <ul></ul>
+      <CreateToDo />
+      <ul>
+        {toDos.map((toDo) => (
+          <ToDo key={toDo.id} {...toDo} />
+        ))}
+      </ul>
     </div>
   );
 };
