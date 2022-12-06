@@ -1,12 +1,20 @@
 import { useRecoilState } from "recoil";
 import { IToDo, toDoState } from "./atoms";
 
-const ToDo = ({ text, category }: IToDo) => {
-  const setToDos = useRecoilState(toDoState);
+const ToDo = ({ text, category, id }: IToDo) => {
+  const [, setToDos] = useRecoilState(toDoState);
   const onClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     const {
       currentTarget: { name },
     } = event;
+    setToDos((oldToDos) => {
+      const targetIndex = oldToDos.findIndex((toDo) => toDo.id === id);
+      const oldToDo = oldToDos[targetIndex];
+      const newToDo = { text, id, category: name as any };
+      const newToDos = [...oldToDos];
+      newToDos.splice(targetIndex, 1, newToDo);
+      return newToDos;
+    });
   };
   return (
     <div>
