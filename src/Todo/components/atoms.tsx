@@ -1,5 +1,11 @@
 import { atom, selector } from "recoil";
 import CreateToDo from "./CreateToDo";
+import { recoilPersist } from "recoil-persist";
+
+const { persistAtom } = recoilPersist({
+  key: "todoLocal",
+  storage: localStorage,
+});
 
 export enum categories {
   "TO_DO" = "TO_DO",
@@ -17,6 +23,7 @@ export interface IToDo {
 export const toDoState = atom<IToDo[]>({
   key: "toDo",
   default: [],
+  effects_UNSTABLE: [persistAtom],
 });
 
 export const categoryState = atom<categories>({

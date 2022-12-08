@@ -7,6 +7,7 @@ import { useRecoilState } from "recoil";
 // import { isTheme, colorTheme } from "./atoms";
 import { colorTheme } from "./atoms";
 import ToDoList from "./Todo/ToDoList";
+import Trello from "./Trello/Trello";
 
 function App() {
   const GlobalStyle = createGlobalStyle`
@@ -85,7 +86,8 @@ table {
       <ThemeProvider theme={Theme}>
         <GlobalStyle />
         {/* <Router /> */}
-        <ToDoList />
+        {/* <ToDoList /> */}
+        <Trello />
         <ReactQueryDevtools initialIsOpen={true} />
       </ThemeProvider>
     </>

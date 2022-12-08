@@ -1,3 +1,4 @@
+import React from "react";
 import { useRecoilState } from "recoil";
 import { categories, IToDo, toDoState } from "./atoms";
 
@@ -14,6 +15,9 @@ const ToDo = ({ text, category, id }: IToDo) => {
       newToDos.splice(targetIndex, 1, newToDo);
       return newToDos;
     });
+  };
+  const onDelite = (event: React.MouseEvent<HTMLButtonElement>) => {
+    setToDos((todos) => todos.filter((todo) => todo.id !== id));
   };
   return (
     <div>
@@ -34,6 +38,7 @@ const ToDo = ({ text, category, id }: IToDo) => {
             Done
           </button>
         )}
+        <button onClick={onDelite}>x</button>
       </li>
     </div>
   );
