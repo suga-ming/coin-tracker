@@ -1,13 +1,18 @@
 import Router from "./Router";
-import styled, { createGlobalStyle, ThemeProvider } from "styled-components";
+import styled, {
+  createGlobalStyle,
+  DefaultTheme,
+  ThemeProvider,
+} from "styled-components";
 import { ReactQueryDevtools } from "react-query/devtools";
-import { purpleTheme, blueTheme, pinkTheme } from "./theme";
+// import { purpleTheme, blueTheme, pinkTheme } from "./theme";
 import { useState } from "react";
 import { useRecoilState } from "recoil";
 // import { isTheme, colorTheme } from "./atoms";
-import { colorTheme } from "./atoms";
+// import { colorTheme } from "./atoms";
 import ToDoList from "./Todo/ToDoList";
 import Trello from "./Trello/Trello";
+import { darkTheme } from "./theme";
 
 function App() {
   const GlobalStyle = createGlobalStyle`
@@ -64,8 +69,8 @@ table {
  }
  body {
    font-family: 'Noto Sans KR', sans-serif;
-   background-color: ${(props) => props.theme.bgColor};
-   color: ${(props) => props.theme.textColor};
+   background-color:${(props) => props.theme.bgColor};
+   color:black;
  }
  a {
 	text-decoration: none;
@@ -74,7 +79,8 @@ table {
  `;
 
   // const [Theme] = useRecoilState(isTheme);
-  const [Theme] = useRecoilState(colorTheme);
+  // const [Theme] = useRecoilState(colorTheme);
+  // const [Theme] = useRecoilState(darkTheme);
   // const [Theme, setTheme] = useState(purpleTheme);
   // const toggleTheme = () => setTheme((current) => !current);
   // const purpleTheme = () => setTheme(purpleTheme);
@@ -83,7 +89,7 @@ table {
   return (
     <>
       {/* <ThemeProvider theme={Theme ? purpleTheme : blueTheme}> */}
-      <ThemeProvider theme={Theme}>
+      <ThemeProvider theme={darkTheme}>
         <GlobalStyle />
         {/* <Router /> */}
         {/* <ToDoList /> */}
