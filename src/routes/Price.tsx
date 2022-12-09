@@ -1,3 +1,4 @@
+import styled from "styled-components";
 import React from "react";
 import { useQuery } from "react-query";
 import { getCoinTickers } from "../api";
@@ -40,6 +41,25 @@ interface PriceData {
   };
 }
 
+const Box = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 300px;
+  height: 35px;
+  background-color: ${(props) => props.theme.accentColor};
+  /* background-color: red; */
+  border-radius: 10px;
+  margin-bottom: 10px;
+`;
+
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`;
+
 const Price = ({ coinId }: PriceProps) => {
   const { isLoading, data } = useQuery<PriceData>(["priceData", coinId!], () =>
     getCoinTickers(coinId)
@@ -50,7 +70,30 @@ const Price = ({ coinId }: PriceProps) => {
       {isLoading ? (
         "Price is loading..."
       ) : (
-        <div>ath_price: ${data?.quotes.USD.ath_price}</div>
+        <>
+          <Container>
+            <Box>
+              <span>price:</span>
+              <span>${data?.quotes.USD.price}</span>
+            </Box>
+            <Box>
+              <span>ath_price:</span>
+              <span>${data?.quotes.USD.ath_price}</span>
+            </Box>
+            <Box>
+              <span>market_cap_change_24h:</span>
+              <span>${data?.quotes.USD.market_cap_change_24h}</span>
+            </Box>
+            <Box>
+              <span>percent_change_12h:</span>
+              <span>${data?.quotes.USD.percent_change_12h}</span>
+            </Box>
+            <Box>
+              <span>market_cap:</span>
+              <span>${data?.quotes.USD.market_cap}</span>
+            </Box>
+          </Container>
+        </>
       )}
     </div>
   );

@@ -9,10 +9,8 @@ import { ReactQueryDevtools } from "react-query/devtools";
 import { useState } from "react";
 import { useRecoilState } from "recoil";
 // import { isTheme, colorTheme } from "./atoms";
-// import { colorTheme } from "./atoms";
-import ToDoList from "./Todo/ToDoList";
-import Trello from "./Trello/Trello";
-import { darkTheme } from "./theme";
+// import ToDoList from "./Todo/ToDoList";
+import { colorTheme } from "./atoms";
 
 function App() {
   const GlobalStyle = createGlobalStyle`
@@ -79,7 +77,7 @@ table {
  `;
 
   // const [Theme] = useRecoilState(isTheme);
-  // const [Theme] = useRecoilState(colorTheme);
+  const [Theme] = useRecoilState(colorTheme);
   // const [Theme] = useRecoilState(darkTheme);
   // const [Theme, setTheme] = useState(purpleTheme);
   // const toggleTheme = () => setTheme((current) => !current);
@@ -89,11 +87,10 @@ table {
   return (
     <>
       {/* <ThemeProvider theme={Theme ? purpleTheme : blueTheme}> */}
-      <ThemeProvider theme={darkTheme}>
+      <ThemeProvider theme={Theme}>
         <GlobalStyle />
-        {/* <Router /> */}
+        <Router />
         {/* <ToDoList /> */}
-        <Trello />
         <ReactQueryDevtools initialIsOpen={true} />
       </ThemeProvider>
     </>

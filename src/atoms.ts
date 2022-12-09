@@ -1,11 +1,11 @@
 import { atom } from "recoil";
 import { purpleTheme } from "./theme";
 
-//Coin Tracker
-// export const isTheme = atom({
-//   key: "isTheme",
-//   default: false,
-// });
+// Coin Tracker
+export const isTheme = atom({
+  key: "isTheme",
+  default: false,
+});
 
 export const colorTheme = atom({
   key: "colorTheme",
@@ -13,7 +13,7 @@ export const colorTheme = atom({
 });
 
 //To Do List
-export const inputValueAtom = atom({
-  key: "inputValueAtom",
-  default: "",
-});
+// export const inputValueAtom = atom({
+//   key: "inputValueAtom",
+//   default: "",
+// });
