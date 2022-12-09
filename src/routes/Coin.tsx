@@ -16,8 +16,9 @@ import Price from "./Price";
 import { Helmet } from "react-helmet";
 import { useRecoilState } from "recoil";
 // import { isTheme } from "../atoms";
-import { blueTheme, pinkTheme, purpleTheme } from "../theme";
-import { colorTheme } from "../atoms";
+// import { blueTheme, pinkTheme, purpleTheme } from "../theme";
+import { lightTheme, darkTheme } from "../theme";
+import { isTheme } from "../atoms";
 
 const Container = styled.div`
   padding: 0 20px;
@@ -64,6 +65,11 @@ const OverViewText = styled.div`
   margin-bottom: 6px;
 `;
 
+const Description = styled.div`
+  color: ${(props) => props.theme.textColor};
+  /* color: black; */
+`;
+
 const Tabs = styled.div`
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -79,8 +85,7 @@ const Tab = styled.div<{ isActive: boolean }>`
   font-weight: 400;
   padding: 7px 0px;
   border-radius: 10px;
-  color: ${(props) =>
-    props.isActive ? props.theme.accentColor : props.theme.textColor};
+  color: ${(props) => (props.isActive ? props.theme.accentColor : "white")};
   a {
     display: block;
   }
@@ -92,34 +97,52 @@ const Back = styled.div`
   top: 22px;
 `;
 
-const ThemePurple = styled.div`
+// const ThemePurple = styled.div`
+//   width: 20px;
+//   height: 20px;
+//   border-radius: 100%;
+//   background-color: #9c88ff;
+//   margin-left: 10px;
+//   cursor: pointer;
+// `;
+
+// const ThemeBlue = styled.div`
+//   width: 20px;
+//   height: 20px;
+//   border-radius: 100%;
+//   background-color: #575fcf;
+//   margin-left: 10px;
+
+//   cursor: pointer;
+// `;
+
+// const ThemePink = styled.div`
+//   width: 20px;
+//   height: 20px;
+//   border-radius: 100%;
+//   background-color: #ef5777;
+//   margin-left: 10px;
+
+//   cursor: pointer;
+// `;
+
+const ChangeTheme = styled.div`
   width: 20px;
   height: 20px;
-  border-radius: 100%;
-  background-color: #9c88ff;
   margin-left: 10px;
+  margin-top: 10px;
   cursor: pointer;
 `;
 
-const ThemeBlue = styled.div`
-  width: 20px;
-  height: 20px;
-  border-radius: 100%;
-  background-color: #575fcf;
-  margin-left: 10px;
+// const ThemeDark = styled.div`
+//   width: 20px;
+//   height: 20px;
+//   border-radius: 100%;
+//   background-color: #ef5777;
+//   margin-left: 10px;
 
-  cursor: pointer;
-`;
-
-const ThemePink = styled.div`
-  width: 20px;
-  height: 20px;
-  border-radius: 100%;
-  background-color: #ef5777;
-  margin-left: 10px;
-
-  cursor: pointer;
-`;
+//   cursor: pointer;
+// `;
 
 interface RouteState {
   state: string;
@@ -222,12 +245,13 @@ const Coin = ({}: ICoinsProps) => {
   // }, []);
 
   const loading = infoLoading || tickersLoading;
-  // const [Theme, setTheme] = useRecoilState(isTheme);
+  const [Theme, setTheme] = useRecoilState(isTheme);
   // const toggleTheme = () => setTheme((current) => !current);
-  const [Theme, setTheme] = useRecoilState(colorTheme);
-  const PurPleTheme = () => setTheme(purpleTheme);
-  const BlueTheme = () => setTheme(blueTheme);
-  const PinkTheme = () => setTheme(pinkTheme);
+  // const [Theme, setTheme] = useRecoilState(colorTheme);
+  // const PurPleTheme = () => setTheme(purpleTheme);
+  // const BlueTheme = () => setTheme(blueTheme);
+  // const PinkTheme = () => setTheme(pinkTheme);
+  const changeTheme = () => setTheme((current) => !current);
   return (
     <div>
       <Container>
@@ -243,9 +267,11 @@ const Coin = ({}: ICoinsProps) => {
           <Link to="/">
             <Back>←</Back>
           </Link>
-          <ThemePurple onClick={PurPleTheme} />
+          {/* <ThemePurple onClick={PurPleTheme} />
           <ThemeBlue onClick={BlueTheme} />
-          <ThemePink onClick={PinkTheme} />
+          <ThemePink onClick={PinkTheme} /> */}
+          {/* <ThemeLight onClick={changeTheme} /> */}
+          <ChangeTheme onClick={changeTheme}>🌓</ChangeTheme>
         </Header>
         {loading ? (
           <Loader>loading...</Loader>
@@ -265,7 +291,7 @@ const Coin = ({}: ICoinsProps) => {
                 <div>${tickersData?.quotes.USD.price.toFixed(2)}</div>
               </OverViewItem>
             </OverView>
-            <div>{infoData?.description}</div>
+            <Description>{infoData?.description}</Description>
             <OverView>
               <OverViewItem>
                 <OverViewText>TOTAL SUPLY:</OverViewText>

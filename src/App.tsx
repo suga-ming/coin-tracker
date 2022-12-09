@@ -10,7 +10,8 @@ import { useState } from "react";
 import { useRecoilState } from "recoil";
 // import { isTheme, colorTheme } from "./atoms";
 // import ToDoList from "./Todo/ToDoList";
-import { colorTheme } from "./atoms";
+import { isTheme } from "./atoms";
+import { darkTheme, lightTheme } from "./theme";
 
 function App() {
   const GlobalStyle = createGlobalStyle`
@@ -68,7 +69,7 @@ table {
  body {
    font-family: 'Noto Sans KR', sans-serif;
    background-color:${(props) => props.theme.bgColor};
-   color:black;
+   color:${(props) => props.theme.textColor};
  }
  a {
 	text-decoration: none;
@@ -76,8 +77,8 @@ table {
  }
  `;
 
-  // const [Theme] = useRecoilState(isTheme);
-  const [Theme] = useRecoilState(colorTheme);
+  const [Theme] = useRecoilState(isTheme);
+  // const [Theme] = useRecoilState(colorTheme);
   // const [Theme] = useRecoilState(darkTheme);
   // const [Theme, setTheme] = useState(purpleTheme);
   // const toggleTheme = () => setTheme((current) => !current);
@@ -87,7 +88,7 @@ table {
   return (
     <>
       {/* <ThemeProvider theme={Theme ? purpleTheme : blueTheme}> */}
-      <ThemeProvider theme={Theme}>
+      <ThemeProvider theme={Theme ? lightTheme : darkTheme}>
         <GlobalStyle />
         <Router />
         {/* <ToDoList /> */}

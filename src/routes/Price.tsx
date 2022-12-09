@@ -48,7 +48,6 @@ const Box = styled.div`
   width: 300px;
   height: 35px;
   background-color: ${(props) => props.theme.accentColor};
-  /* background-color: red; */
   border-radius: 10px;
   margin-bottom: 10px;
 `;
