@@ -92,7 +92,7 @@ table {
         <GlobalStyle />
         <Router />
         {/* <ToDoList /> */}
-        <ReactQueryDevtools initialIsOpen={true} />
+        <ReactQueryDevtools initialIsOpen />
       </ThemeProvider>
     </>
   );
