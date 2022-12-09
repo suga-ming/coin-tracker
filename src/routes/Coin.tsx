@@ -3,11 +3,13 @@ import { useEffect, useState } from "react";
 import { useQuery } from "react-query";
 import {
   Link,
+  Navigate,
   Route,
   Routes,
   useLocation,
   useMatch,
   useParams,
+  useNavigate,
 } from "react-router-dom";
 import styled from "styled-components";
 import { getCoinInfo, getCoinTickers } from "../api";
@@ -211,6 +213,7 @@ const Coin = ({}: ICoinsProps) => {
   const { state } = useLocation() as RouteState;
   const priceMatch = useMatch("/:coinId/price");
   const chartMatch = useMatch("/:coinId/chart");
+  const navigate = useNavigate();
 
   const { isLoading: infoLoading, data: infoData } = useQuery<InfoData>(
     ["info", coinId],
@@ -252,6 +255,7 @@ const Coin = ({}: ICoinsProps) => {
   // const BlueTheme = () => setTheme(blueTheme);
   // const PinkTheme = () => setTheme(pinkTheme);
   const changeTheme = () => setTheme((current) => !current);
+
   return (
     <div>
       <Container>

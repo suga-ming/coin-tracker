@@ -47,9 +47,6 @@ const Chart = ({ coinId }: ChartProps) => {
             yaxis: { show: false },
             xaxis: {
               axisBorder: { show: false },
-              labels: {
-                show: true,
-              },
               axisTicks: {
                 show: false,
               },
