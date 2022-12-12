@@ -1,6 +1,55 @@
 import React from "react";
 import { useRecoilState } from "recoil";
+import styled from "styled-components";
 import { categories, IToDo, toDoState } from "./atoms";
+
+const Text = styled.span`
+  margin-right: 10px;
+`;
+
+const List = styled.li`
+  padding: 10px;
+`;
+
+const GrayButton = styled.button`
+  margin-right: 5px;
+  background-color: gray;
+  color: white;
+  border: none;
+  width: 50px;
+  height: 25px;
+  border-radius: 5px;
+  cursor: pointer;
+`;
+
+const BlueButton = styled.button`
+  margin-right: 5px;
+  background-color: #9abdff;
+  color: white;
+  border: none;
+  width: 50px;
+  height: 25px;
+  border-radius: 5px;
+  cursor: pointer;
+`;
+
+const Button = styled.button`
+  margin-right: 5px;
+  background-color: white;
+  border: none;
+  width: 50px;
+  height: 25px;
+  border-radius: 5px;
+  cursor: pointer;
+`;
+
+const RedButton = styled.button`
+  margin-right: 5px;
+  background-color: red;
+  color: white;
+  border: none;
+  cursor: pointer;
+`;
 
 const ToDo = ({ text, category, id }: IToDo) => {
   const [, setToDos] = useRecoilState(toDoState);
@@ -21,25 +70,25 @@ const ToDo = ({ text, category, id }: IToDo) => {
   };
   return (
     <div>
-      <li>
-        <span>{text}</span>
+      <List>
+        <Text>{text}</Text>
         {category !== categories.DOING && (
-          <button name={categories.DOING} onClick={onClick}>
+          <BlueButton name={categories.DOING} onClick={onClick}>
             Doing
-          </button>
+          </BlueButton>
         )}
         {category !== categories.TO_DO && (
-          <button name={categories.TO_DO} onClick={onClick}>
+          <Button name={categories.TO_DO} onClick={onClick}>
             To Do
-          </button>
+          </Button>
         )}
         {category !== categories.DONE && (
-          <button name={categories.DONE} onClick={onClick}>
+          <GrayButton name={categories.DONE} onClick={onClick}>
             Done
-          </button>
+          </GrayButton>
         )}
-        <button onClick={onDelite}>x</button>
-      </li>
+        <RedButton onClick={onDelite}>x</RedButton>
+      </List>
     </div>
   );
 };

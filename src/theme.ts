@@ -12,8 +12,8 @@ export const darkTheme: DefaultTheme = {
   accentColor: "#fbc531",
 };
 
-// export const pinkTheme: DefaultTheme = {
-//   bgColor: "#ef5777",
-//   textColor: "#f5f6fa",
-//   accentColor: "#fbc531",
-// };
+export const pinkTheme: DefaultTheme = {
+  bgColor: "pink",
+  textColor: "black",
+  accentColor: "#fbc531",
+};
