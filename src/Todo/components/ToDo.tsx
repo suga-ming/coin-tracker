@@ -66,8 +66,13 @@ const ToDo = ({ text, category, id }: IToDo) => {
     });
   };
   const onDelite = (event: React.MouseEvent<HTMLButtonElement>) => {
-    setToDos((todos) => todos.filter((todo) => todo.id !== id));
+    if (window.confirm("일정을 삭제하시겠습니까?")) {
+      setToDos((todos) => todos.filter((todo) => todo.id !== id));
+    } else {
+      alert("일정을 삭제하지 않겠습니다.");
+    }
   };
+
   return (
     <div>
       <List>
