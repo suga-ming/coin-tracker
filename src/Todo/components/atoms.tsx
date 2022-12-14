@@ -31,11 +31,13 @@ export const toDoState = atom<IToDo[]>({
 export const categoryState = atom<string>({
   key: "category",
   default: defaultCategories[0],
+  effects_UNSTABLE: [persistAtom],
 });
 
 export const categoriesState = atom<string[]>({
   key: "categories",
   default: defaultCategories,
+  effects_UNSTABLE: [persistAtom],
 });
 
 export const toDoSelector = selector({

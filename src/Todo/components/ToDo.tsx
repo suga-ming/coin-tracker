@@ -1,7 +1,13 @@
 import React from "react";
 import { useRecoilState } from "recoil";
 import styled from "styled-components";
-import { categories, IToDo, toDoState } from "./atoms";
+import {
+  categories,
+  categoriesState,
+  categoryState,
+  IToDo,
+  toDoState,
+} from "./atoms";
 
 const Text = styled.span`
   margin-right: 10px;
@@ -27,7 +33,7 @@ const BlueButton = styled.button`
   background-color: #9abdff;
   color: white;
   border: none;
-  width: 50px;
+  width: 60px;
   height: 25px;
   border-radius: 5px;
   cursor: pointer;
@@ -53,6 +59,9 @@ const RedButton = styled.button`
 
 const ToDo = ({ text, category, id }: IToDo) => {
   const [, setToDos] = useRecoilState(toDoState);
+  const [chooseCategory, setChooseCategory] = useRecoilState(categoryState);
+  const [categories, setCategories] = useRecoilState(categoriesState);
+  console.log(categories);
   const onClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     const {
       currentTarget: { name },
@@ -77,20 +86,18 @@ const ToDo = ({ text, category, id }: IToDo) => {
     <div>
       <List>
         <Text>{text}</Text>
-        {category !== categories.DOING && (
-          <BlueButton name={categories.DOING} onClick={onClick}>
-            Doing
-          </BlueButton>
-        )}
-        {category !== categories.TO_DO && (
-          <Button name={categories.TO_DO} onClick={onClick}>
-            To Do
-          </Button>
-        )}
-        {category !== categories.DONE && (
-          <GrayButton name={categories.DONE} onClick={onClick}>
-            Done
-          </GrayButton>
+        {Object.values(categories).map(
+          (availableCategory) =>
+            chooseCategory !== availableCategory && (
+              <BlueButton
+                disabled={availableCategory === category}
+                key={availableCategory}
+                name={availableCategory}
+                onClick={onClick}
+              >
+                {availableCategory}
+              </BlueButton>
+            )
         )}
         <RedButton onClick={onDelite}>x</RedButton>
       </List>
