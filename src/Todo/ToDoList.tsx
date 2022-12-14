@@ -1,8 +1,10 @@
 import React from "react";
+import { useForm } from "react-hook-form";
 import { useRecoilState, useRecoilValue } from "recoil";
 import styled from "styled-components";
 import {
   categories,
+  categoriesState,
   categoryState,
   toDoSelector,
   toDoState,
@@ -14,6 +16,10 @@ export interface IToDo {
   text: string;
   id: number;
   category: "TO_DO" | "DOING" | "DONE";
+}
+
+interface INewCategory {
+  newCategory: string;
 }
 
 const Title = styled.div`
@@ -40,6 +46,19 @@ const Select = styled.select`
 const SelectArea = styled.div`
   display: flex;
   padding: 20px;
+  align-items: center;
+`;
+
+const CategoryButton = styled.button`
+  width: 80px;
+  height: 30px;
+  border: none;
+  border-radius: 5px;
+  margin-right: 5px;
+`;
+
+const Form = styled.form`
+  display: flex;
   align-items: center;
 `;
 
@@ -76,9 +95,24 @@ const Button = styled.button`
 
 const ToDoList = () => {
   const toDos = useRecoilValue(toDoSelector);
+  const { register, handleSubmit, setValue } = useForm<INewCategory>();
   const [category, setCategory] = useRecoilState(categoryState);
+  const [categories, setCategoies] = useRecoilState(categoriesState);
+
+  const onClick = (category: string) => {
+    setCategory(category);
+  };
+
+  console.log("category", category);
+
   const onInput = (event: React.FormEvent<HTMLSelectElement>) => {
     setCategory(event.currentTarget.value as any);
+  };
+
+  const onValid = ({ newCategory }: INewCategory) => {
+    setValue("newCategory", "");
+    setCategoies([...categories, newCategory]);
+    console.log("category", category);
   };
   console.log(toDos);
 
@@ -86,14 +120,26 @@ const ToDoList = () => {
     <div>
       <Title>To Dos</Title>
       <ToDoArea>
-        <SelectArea>
-          <Select value={category} onInput={onInput}>
-            <option value={categories.TO_DO}>TO_Do</option>
-            <option value={categories.DOING}>DOING</option>
-            <option value={categories.DONE}>DONE</option>
-          </Select>
-          <Input placeholder=" 카테고리 추가"></Input>
+        <Form onSubmit={handleSubmit(onValid)}>
+          <Input
+            {...register("newCategory")}
+            placeholder=" 카테고리 추가"
+          ></Input>
           <Button>추가</Button>
+        </Form>
+        <SelectArea>
+          {/* <Select value={category} onInput={onInput}>
+            <option value="TO_DO">TO_Do</option>
+            <option value="DOING">DOING</option>
+            <option value="DONE">DONE</option>
+          </Select> */}
+          {categories.map((availableCategory) => (
+            <div key={availableCategory}>
+              <CategoryButton onClick={() => onClick(availableCategory)}>
+                {availableCategory}
+              </CategoryButton>
+            </div>
+          ))}
         </SelectArea>
         <TODoArea>
           <CreateToDo />

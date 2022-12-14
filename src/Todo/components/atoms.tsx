@@ -7,6 +7,8 @@ const { persistAtom } = recoilPersist({
   storage: localStorage,
 });
 
+export const defaultCategories = ["TO_DO", "DOING", "DONE"];
+
 export enum categories {
   "TO_DO" = "TO_DO",
   "DOING" = "DOING",
@@ -17,7 +19,7 @@ export enum categories {
 export interface IToDo {
   text: string;
   id: number;
-  category: categories;
+  category: string;
 }
 
 export const toDoState = atom<IToDo[]>({
@@ -26,14 +28,14 @@ export const toDoState = atom<IToDo[]>({
   effects_UNSTABLE: [persistAtom],
 });
 
-export const categoryState = atom<categories>({
+export const categoryState = atom<string>({
   key: "category",
-  default: categories.TO_DO,
+  default: defaultCategories[0],
 });
 
-export const newCategoryState = atom<IToDo[]>({
-  key: "newCategory",
-  default: [],
+export const categoriesState = atom<string[]>({
+  key: "categories",
+  default: defaultCategories,
 });
 
 export const toDoSelector = selector({
