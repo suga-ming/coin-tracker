@@ -9,7 +9,6 @@ import { ReactQueryDevtools } from "react-query/devtools";
 import { useState } from "react";
 import { useRecoilState } from "recoil";
 // import { isTheme, colorTheme } from "./atoms";
-import ToDoList from "./Todo/ToDoList";
 import { isTheme } from "./atoms";
 import { pinkTheme } from "./theme";
 import { darkTheme, lightTheme } from "./theme";
@@ -89,11 +88,9 @@ table {
   return (
     <>
       {/* <ThemeProvider theme={Theme ? purpleTheme : blueTheme}> */}
-      {/* <ThemeProvider theme={Theme ? lightTheme : darkTheme}> */}
-      <ThemeProvider theme={pinkTheme}>
+      <ThemeProvider theme={Theme ? lightTheme : darkTheme}>
         <GlobalStyle />
-        {/* <Router /> */}
-        <ToDoList />
+        <Router />
         <ReactQueryDevtools initialIsOpen />
       </ThemeProvider>
     </>
