@@ -61,5 +61,5 @@
     "@types/react-helmet": "^6.1.6",
     "@types/styled-components": "^5.1.26"
   },
-  "homepage": "https://suga-ming.github.io/nomad-react"
+  "homepage": "https://suga-ming.github.io/coin-tracker"
 }

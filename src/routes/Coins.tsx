@@ -63,22 +63,22 @@ interface ICoin {
 
 const Coins = () => {
   const { isLoading, data } = useQuery<ICoin[]>("allCoins", getCoinList);
-  //   const [coins, setCoins] = useState<ICoin[]>([]);
-  //   const [loading, setLoading] = useState(true);
+  const [coins, setCoins] = useState<ICoin[]>([]);
+  const [loading, setLoading] = useState(true);
 
-  //   useEffect(() => {
-  //     (async () => {
-  //       try {
-  //         const response = await axios.get(
-  //           "https://api.coinpaprika.com/v1/coins"
-  //         );
-  //         setCoins(response.data.slice(0, 100));
-  //         setLoading(false);
-  //       } catch (error) {
-  //         console.log(error);
-  //       }
-  //     })();
-  //   }, []);
+  useEffect(() => {
+    (async () => {
+      try {
+        const response = await axios.get(
+          "https://api.coinpaprika.com/v1/coins"
+        );
+        setCoins(response.data.slice(0, 100));
+        setLoading(false);
+      } catch (error) {
+        console.log(error);
+      }
+    })();
+  }, []);
 
   return (
     <Container>
