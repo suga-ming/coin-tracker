@@ -1,15 +1,11 @@
-import axios from "axios";
-import { useEffect, useState } from "react";
 import { useQuery } from "react-query";
 import {
   Link,
-  Navigate,
   Route,
   Routes,
   useLocation,
   useMatch,
   useParams,
-  useNavigate,
 } from "react-router-dom";
 import styled from "styled-components";
 import { getCoinInfo, getCoinTickers } from "../api";
@@ -17,9 +13,6 @@ import Chart from "./Chart";
 import Price from "./Price";
 import { Helmet } from "react-helmet";
 import { useRecoilState } from "recoil";
-// import { isTheme } from "../atoms";
-// import { blueTheme, pinkTheme, purpleTheme } from "../theme";
-import { lightTheme, darkTheme } from "../theme";
 import { isTheme } from "../atoms";
 
 const Container = styled.div`
@@ -69,7 +62,6 @@ const OverViewText = styled.div`
 
 const Description = styled.div`
   color: ${(props) => props.theme.textColor};
-  /* color: black; */
 `;
 
 const Tabs = styled.div`
@@ -99,35 +91,6 @@ const Back = styled.div`
   top: 22px;
 `;
 
-// const ThemePurple = styled.div`
-//   width: 20px;
-//   height: 20px;
-//   border-radius: 100%;
-//   background-color: #9c88ff;
-//   margin-left: 10px;
-//   cursor: pointer;
-// `;
-
-// const ThemeBlue = styled.div`
-//   width: 20px;
-//   height: 20px;
-//   border-radius: 100%;
-//   background-color: #575fcf;
-//   margin-left: 10px;
-
-//   cursor: pointer;
-// `;
-
-// const ThemePink = styled.div`
-//   width: 20px;
-//   height: 20px;
-//   border-radius: 100%;
-//   background-color: #ef5777;
-//   margin-left: 10px;
-
-//   cursor: pointer;
-// `;
-
 const ChangeTheme = styled.div`
   width: 20px;
   height: 20px;
@@ -135,16 +98,6 @@ const ChangeTheme = styled.div`
   margin-top: 10px;
   cursor: pointer;
 `;
-
-// const ThemeDark = styled.div`
-//   width: 20px;
-//   height: 20px;
-//   border-radius: 100%;
-//   background-color: #ef5777;
-//   margin-left: 10px;
-
-//   cursor: pointer;
-// `;
 
 interface RouteState {
   state: string;
@@ -213,7 +166,6 @@ const Coin = ({}: ICoinsProps) => {
   const { state } = useLocation() as RouteState;
   const priceMatch = useMatch("/:coinId/price");
   const chartMatch = useMatch("/:coinId/chart");
-  const navigate = useNavigate();
 
   const { isLoading: infoLoading, data: infoData } = useQuery<InfoData>(
     ["info", coinId],
@@ -226,34 +178,9 @@ const Coin = ({}: ICoinsProps) => {
       refetchInterval: 10000,
     }
   );
-  // const [loading, setLoading] = useState(true);
-  // const [infoData, setInfo] = useState<InfoData>();
-  // const [tickersData, setPriceInfo] = useState<PriceData>();
-  // console.log(priceMatch);
-  // console.log(chartMatch);
-
-  // useEffect(() => {
-  //   (async () => {
-  //     const infoData = await axios.get(
-  //       `https://api.coinpaprika.com/v1/coins/${coinId}`
-  //     );
-  //     const priceData = await axios.get(
-  //       `https://api.coinpaprika.com/v1/tickers/${coinId}`
-  //     );
-
-  //     setInfo(infoData.data);
-  //     setPriceInfo(priceData.data);
-  //     setLoading(false);
-  //   })();
-  // }, []);
 
   const loading = infoLoading || tickersLoading;
   const [Theme, setTheme] = useRecoilState(isTheme);
-  // const toggleTheme = () => setTheme((current) => !current);
-  // const [Theme, setTheme] = useRecoilState(colorTheme);
-  // const PurPleTheme = () => setTheme(purpleTheme);
-  // const BlueTheme = () => setTheme(blueTheme);
-  // const PinkTheme = () => setTheme(pinkTheme);
   const changeTheme = () => setTheme((current) => !current);
 
   return (
@@ -271,10 +198,6 @@ const Coin = ({}: ICoinsProps) => {
           <Link to="/">
             <Back>←</Back>
           </Link>
-          {/* <ThemePurple onClick={PurPleTheme} />
-          <ThemeBlue onClick={BlueTheme} />
-          <ThemePink onClick={PinkTheme} /> */}
-          {/* <ThemeLight onClick={changeTheme} /> */}
           <ChangeTheme onClick={changeTheme}>🌓</ChangeTheme>
         </Header>
         {loading ? (
